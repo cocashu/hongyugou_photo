@@ -4,12 +4,13 @@
 
 一个用于简单编辑和压缩图片的工具
 
-## Getting Started
+## 说明
 
 代码来自各个库的演示代码
 Flutter 1.20.4
 
 ##使用的库
+
 dependencies:
   cupertino_icons: ^0.1.3
   image_picker: 0.6.7+12
@@ -22,11 +23,13 @@ dependencies:
   flutter_native_image: ^0.0.5+3
   
 ##编译结果
+
 安卓模拟器：OK
 安卓真机：OK
 iOS模拟器：Ok
 iOS真机：还没测试到
 
 ##已知问题
+
 iOS模拟器下第二次打开相册app会闪退
 
