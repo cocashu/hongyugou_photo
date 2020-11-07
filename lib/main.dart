@@ -49,8 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     state = AppState.free;
-    Image.asset('./asset/image/logo.png');
-    // imageFile('assets/images/mine/navBack.png',width: 16,height: 16);
   }
 
   @override
@@ -75,12 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () async {
-              //保存
-              //    final result = ImageGallerySaver.saveFile(imageFile.path);
-              // _clearImage();
-
               ImageGallerySaver.saveFile(imageFile.path);
-
+              print(imageFile.path);
               showToast("保存成功，请到相册查找"); // 可选属性看自己需求
             },
           )
@@ -133,7 +127,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ));
 
     if (imageSource != null) {
-      //final file = await ImagePicker.pickImage(source: imageSource);
       final file = await picker.getImage(source: ImageSource.gallery);
       if (file != null) {
         ImageProperties properties =
@@ -146,7 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() => imageFile = compressedFile);
       }
     }
-    // imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (imageFile != null) {
       setState(() {
         state = AppState.picked;
@@ -197,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _clearImage() {
     imageFile = null;
+    print('test');
     setState(() {
       state = AppState.free;
     });
