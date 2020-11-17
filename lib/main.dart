@@ -7,7 +7,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:oktoast/oktoast.dart'; // 1. import library
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:path_provider/path_provider.dart';
-import './qingchu.dart';
+import './home_page.dart';
 
 void main() => runApp(new MyApp());
 
@@ -45,8 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   File imageFile;
   File primaryFile;
   File compressedFile;
-  Path _tempDir;
-  int _cacheSize;
+
   final picker = ImagePicker();
   var time = 0;
   @override
@@ -158,8 +157,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.shop,
                           color: Colors.orange,
                         ),
-                        title: Text("鸿宇购"),
-                        onTap: () {},
+                        title: Text("鸿宇购H5"),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) {
+                            return new WebMain();
+                          }));
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.shop,
+                          color: Colors.orange,
+                        ),
+                        title: Text("鸿宇购(商家)"),
+                        onTap: () {
+                          //待开发
+                          // Navigator.pop(context);
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (_) {
+                          //   return new WebMain();
+                          // }));
+                        },
                       ),
                       ListTile(
                         leading: Icon(
@@ -187,6 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   new FlatButton(
                                     child: new Text('确定'),
                                     onPressed: () {
+                                      Navigator.pop(context);
                                       Navigator.of(context).pop();
                                     },
                                   ),
@@ -204,7 +225,140 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.orange,
                         ),
                         title: Text("软件使用说明"),
-                        onTap: () {},
+                        onTap: () {
+                          showDialog<Null>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return new AlertDialog(
+                                title: new Text('使用简介'),
+                                content: new SingleChildScrollView(
+                                  child: new ListBody(
+                                    children: <Widget>[
+                                      Text.rich(
+                                        TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: '1.',
+                                            ),
+                                            WidgetSpan(
+                                              child: Icon(
+                                                Icons.add,
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '添加图片到显示界面',
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: '2.',
+                                            ),
+                                            WidgetSpan(
+                                              child: Icon(
+                                                Icons.crop,
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '进入到裁剪图片界面',
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: '3.',
+                                            ),
+                                            WidgetSpan(
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '完成裁剪回到显示界面',
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: '4.',
+                                            ),
+                                            WidgetSpan(
+                                              child: Icon(
+                                                Icons.save,
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '保存裁剪结果到相册',
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                              text: '0.',
+                                            ),
+                                            WidgetSpan(
+                                              child: Icon(
+                                                Icons.clear,
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: '清除当前图片(放弃编辑)',
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      new Text('按数字顺序操作即可(非零)'),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  new FlatButton(
+                                    child: new Text('确定'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          ).then((val) {
+                            print(val);
+                          });
+                        },
                       ),
                       ListTile(
                         leading: Icon(
@@ -223,7 +377,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: new ListBody(
                                     children: <Widget>[
                                       new Text(
-                                          '本软件只调用了相册读写权限，用于打开图片和剪裁图片。无网络调用和上传任何信息。'),
+                                          '本软件只调用了相册读写权限，用于打开图片和保存图片。无网络调用和上传任何信息。'),
                                       new Text('如果不放心的请卸载本软件！'),
                                     ],
                                   ),
@@ -232,9 +386,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                   new FlatButton(
                                     child: new Text('同意'),
                                     onPressed: () {
+                                      Navigator.pop(context);
                                       Navigator.of(context).pop();
                                     },
+                                  ),
+                                  new FlatButton(
                                     //不同意关闭软件
+                                    child: new Text('不同意'),
+                                    onPressed: () {
+                                      exit(0);
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
                                 ],
                               );
@@ -249,8 +411,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.clear,
                           color: Colors.orange,
                         ),
-                        title: Text("清空缓存"),
-                        onTap: () {
+                        title: Text("缓存清理"),
+                        onTap: () async {
+                          Directory tempDir = await getTemporaryDirectory();
+                          double value =
+                              await _getTotalSizeOfFilesInDir(tempDir);
+                          //showToast(_renderSize(value));
                           showDialog<Null>(
                             context: context,
                             barrierDismissible: false,
@@ -261,19 +427,24 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: new ListBody(
                                     children: <Widget>[
                                       new Text('只清除本软件的缓存，请放心使用！'),
-                                      new Text('缓存大小：'),
-                                      // new Text(loadCache()),
+                                      new Text('缓存大小：${_renderSize(value)}'),
                                     ],
                                   ),
                                 ),
                                 actions: <Widget>[
+                                  new FlatButton(
+                                    child: new Text('返回'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
                                   new FlatButton(
                                     child: new Text('清空'),
                                     onPressed: () {
                                       _clearCache();
                                       Navigator.of(context).pop();
                                     },
-                                    //不同意关闭软件
                                   ),
                                 ],
                               );
@@ -430,5 +601,54 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
     await file.delete();
+  }
+
+// 加载缓存
+  Future<String> loadCache() async {
+    Directory tempDir = await getTemporaryDirectory();
+    double value = await _getTotalSizeOfFilesInDir(tempDir);
+    /*tempDir.list(followLinks: false,recursive: true).listen((file){
+          //打印每个缓存文件的路径
+        print(file.path);
+      });*/
+    //print('临时目录大小: ' + _renderSize(value).toString());
+    showToast(_renderSize(value));
+    return _renderSize(value);
+  }
+
+// 循环计算文件的大小（递归）
+  Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+    if (file is File) {
+      int length = await file.length();
+      return double.parse(length.toString());
+    }
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      double total = 0;
+      if (children != null)
+        for (final FileSystemEntity child in children)
+          total += await _getTotalSizeOfFilesInDir(child);
+      return total;
+    }
+    return 0;
+  }
+
+// 计算大小
+  _renderSize(double value) {
+    if (null == value) {
+      return 0;
+    }
+    List<String> unitArr = List()..add('B')..add('K')..add('M')..add('G');
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    if (size == '0.00') {
+      return '0M';
+    }
+    // print('size:${size == 0}\n ==SIZE${size}');
+    return size + unitArr[index];
   }
 }
