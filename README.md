@@ -22,6 +22,7 @@ dependencies:<br>
   flutter_plugin_android_lifecycle: ^1.0.11<br>
   oktoast: ^2.3.2<br>
   flutter_native_image: ^0.0.5+3<br>
+  flutter_webview_plugin: ^0.3.11 #用于加载web页面 <br>
   
 ##编译结果
 
