@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
@@ -7,6 +9,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:oktoast/oktoast.dart'; // 1. import library
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import './home_page.dart';
 
 void main() => runApp(new MyApp());
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
     return OKToast(
         // 这一步
         child: MaterialApp(
-      title: 'ImageCropper',
+      title: '鸿宇购图片编辑',
       theme: ThemeData.light().copyWith(primaryColor: Colors.red),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(
@@ -51,6 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    var permission =
+        PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
+    print("permission status is " + permission.toString());
+    PermissionHandler().requestPermissions(<PermissionGroup>[
+      PermissionGroup.storage, // 在这里添加需要的权限
+    ]);
     state = AppState.free;
   }
 
@@ -76,9 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             icon: Icon(Icons.save),
             onPressed: () async {
+              requestPermission();
               ImageGallerySaver.saveFile(imageFile.path);
-              print(imageFile.path);
-              showToast("保存成功，请到相册查找"); // 可选属性看自己需求
+              // print(imageFile.path);
+              showToast("保存成功，请到相册查找'鸿宇购图片工具'"); // 可选属性看自己需求
               _clearImage();
             },
           )
@@ -114,6 +124,22 @@ class _MyHomePageState extends State<MyHomePage> {
       return Icon(Icons.clear);
     else
       return Container();
+  }
+
+  Future requestPermission() async {
+    // 申请权限
+    Map<PermissionGroup, PermissionStatus> permissions =
+        await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+
+    // 申请结果
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.storage);
+
+    if (permission == PermissionStatus.granted) {
+      print("权限申请通过");
+    } else {
+      print("权限申请通过");
+    }
   }
 
 //抽屉菜单
@@ -174,6 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         title: Text("鸿宇购(商家)"),
                         onTap: () {
                           //待开发
+                          showToast('待开发');
                           // Navigator.pop(context);
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (_) {
@@ -197,9 +224,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 content: new SingleChildScrollView(
                                   child: new ListBody(
                                     children: <Widget>[
-                                      new Text(
-                                          '软件代码主要来自image_cropper和image_picker的演示代码，进行相关整合，软件仅为学习测试使用。'),
-                                      new Text('本软件免费使用，永久免费，无广告'),
+                                      new Text('软件仅为学习和测试使用，不得对外销售。仅限内部测试使用'),
+                                      new Text('制作开发：吴俊杰'),
                                     ],
                                   ),
                                 ),
@@ -576,7 +602,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //清空
   void _clearImage() {
     imageFile = null;
-    print('test');
+    // print('test');
     setState(() {
       state = AppState.free;
     });
@@ -652,3 +678,5 @@ class _MyHomePageState extends State<MyHomePage> {
     return size + unitArr[index];
   }
 }
+
+class Permission {}
