@@ -8,6 +8,11 @@
          <!-- 开启读写storage权限 -->
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 开启读写网络权限 -->
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="鸿宇购图片工具"
